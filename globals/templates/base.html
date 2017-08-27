@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}SumoSurvey{% endblock title %}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    </head>
+
+    <body>
+        <div id='header'>
+            <div class='wrapper'>
+            <div class='row'>
+                <div class='col-xs-12 col-sm-4'>
+                    <h1>SumoSurvey</h1>
+                </div>
+
+                <div class='col-xs-12 col-sm-8'>
+                    <ul class='row'>
+
+                    {% if request.user.is_authenticated %}
+                        <li >
+                            <a class='col-xs-3' href="{% url 'survey' %}">Survey</a>
+                        </li>
+                        <li >
+                            <a class='col-xs-3' href="{% url 'results' %}">Results</a>
+                        </li>
+                        <li >
+                            <a class='col-xs-3' href="{% url 'create_question' %}?from={{request.path}}">+ Question</a>
+                        </li>
+                        <li >
+                            <a  class='col-xs-3' href="{% url 'logout' %}">Log Out</a>
+                        </li>
+                    {% endif %}
+                    {% if not request.user.is_authenticated %}
+                        <li>
+                            <a class='col-xs-3' href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </div>
+            </div>
+            </div>
+            <div class='clearfix'></div>
+        </div>
+        <!-- content -->
+    	<div id="content" class="wrapper">
+    		{% block content %}...{% endblock content%}
+    	</div>
+
+        {% block localjs %}
+        {% endblock localjs %}
+
+    </body>
+</html>

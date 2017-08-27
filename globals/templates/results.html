@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+	{% for question in question_set %}
+		<h2>{{question.label}}?</h2>
+		{% for choice in question.sorted_choice_set.all %}
+			<li>
+				{{choice.label}} ({{choice.answer_set.count}})
+			</li>
+		{% endfor %}
+	{% endfor %}
+{% endblock %}
